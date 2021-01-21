@@ -1,7 +1,12 @@
-import React from 'react';
-
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import SneakersForm from './components/SneakersForm';
-import Skeleton from '@material-ui/lab/Skeleton';
+import SneakersList from './components/SneakersList';
+import SneakersDetails from './components/SneakersDetails';
+import LoadMore from './components/LoadMore';
+import { SNEAKERS_PAGE_NUMBER } from './constants';
+
+// import Skeleton from '@material-ui/lab/Skeleton';
 
 const Variants = () => {
   return (
@@ -11,10 +16,20 @@ const Variants = () => {
   );
 }
 
+const TotalResults = () => {
+  const quantity = useSelector( state => state.sneakers.totalProducts );
+  return <div> found {quantity} pairs</div>
+};
+
 const App = () => {
+
   return(
     <div>
       <SneakersForm />
+      <TotalResults />
+      <LoadMore currentPage={SNEAKERS_PAGE_NUMBER} />
+      <SneakersList />
+      <SneakersDetails />
     </div>
   )
 };

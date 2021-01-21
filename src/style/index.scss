@@ -1,5 +1,12 @@
 @import './reset';
+@import './vars';
+@import './mixins';
+@import './default-classes';
+/* desctop */
+@import './app';
+@import './components/sneakersList/index';
+@import './components/sneakersItem/index';
+@import './components/sneakersDetail/index';
 
-form{
-
-}
+/*  */
+@import './ripple';

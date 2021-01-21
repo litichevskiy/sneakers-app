@@ -1,25 +1,3 @@
-/*
-  sku - Stock Keeping Unit
-  Sneaks-API
-  ////////////////////////////////////////////////////////////////
-  local very slow
-  https://github.com/druv5319/Sneaks-API
-  https://sneaks-app.com/#/search/china
-  //////////////////////////////////////////////////////////////////////
-  fast is free?
-  https://api.thesneakerdatabase.dev/v2
-  https://app.swaggerhub.com/apis-docs/tg4solutions/dev-v_2_sneaker_database/1.0.0
-  https://tg4.solutions/the-sneaker-database-test-endpoints-available/
-  https://thesneakerdatabase.com/
-
-  apps
-  goat : https://goat.com/sneakers/wmns-dunk-low-black-white-dd1503-101
-  stockx : https://stockx.com/nike-dunk-low-white-black-2021-w
-  flightclub : https://flightclub.com/wmns-dunk-low-black-white-dd1503-101
-*/
-
-
-
 const PORT = process.env.PORT || 3000;
 const express = require('express');
 const path = require('path');
@@ -30,7 +8,6 @@ const sneaks_data = require('./sneaks-data.json');
 app.use('/dist', express.static(__dirname + '/dist'));
 app.use('/images', express.static(__dirname + '/src/images'));
 app.get('/', (req,res) => {
-  // res.sendFile(path.join(__dirname+'/index.html'));
   res.sendFile(path.join(__dirname+'/dist/js/index.html'));
 });
 
@@ -53,9 +30,21 @@ app.get( '/sneakers/:id', ( req, res ) => {
   res.status( status ).send({ results: sneaker })
 });
 
+let from = 0;
+let to = 10;
+
 app.get( '/sneakers', ( req, res ) => {
   const { sneakers } = sneaks_data;
-  res.send({ count: sneakers.length, results: sneakers })
+  const { limit } = req.query;
+  res.send({ count: sneakers.length, results: sneakers.slice(from, to ) });
+  from = to;
+  to = to + 10;
+
+  if( to > sneakers.length ) {
+    from = 0;
+    to = 10;
+  }
+
 });
 
 app.listen( PORT, () => console.log(`server listening on port ${PORT}`));
