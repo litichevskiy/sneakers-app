@@ -6,11 +6,147 @@
 
 .btn{
   background: #d8d2e0;
-  border: 1px solid grey;
+  border: none;
   border-radius: 3px;
   font-size: 1rem;
   padding: 0.4rem 1rem;
-  margin: 0.5rem;
   position: relative;
   overflow: hidden;
+}
+
+.empty-btn{
+  @extend .default-box-shadow;
+  @include border_radius( 3px );
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #fff;
+  cursor: pointer;
+  width: 55px;
+  height: 35px;
+  background-size: 26px 26px;
+  transform: translateZ(0);
+  border: none;
+
+  &__clear{
+    background-image: url(../images/icons/icon-sweep.svg);
+  }
+
+  &__search{
+    background-image: url(../images/icons/icon-search.svg);
+  }
+
+  &__menu{
+    width: 48px;
+    height: 48px;
+    background-size: 32px 32px;
+    background-image: url(../images/icons/icon-menu.svg);
+  }
+}
+
+.select,
+.input{
+  font-size: inherit;
+  width: 100%;
+  min-width: 100px;
+  padding: 0.4rem 0.4rem 0.4rem 0;
+  background: #fff;
+  border: none;
+  border-bottom: 1px solid grey;
+}
+
+.input{
+
+  &--invalid{
+    background-color: #ffd5dd;
+  }
+}
+
+.select{
+  appearance: none;
+  cursor: pointer;
+  text-transform: lowercase;
+  position: relative;
+  z-index: 2;
+  background-color: transparent;
+  padding-right: 16px;
+}
+
+.select-wrapper{
+  position: relative;
+  z-index: 1;
+  background-color: #FFF;
+
+  &:after{
+    content: '';
+    background: #fff;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat, repeat;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' width='16px' height='16px' viewBox='0 0 292.362 292.362'%3E%3Cpath fill='%23808080' d='M286.935,69.377c-3.614-3.617-7.898-5.424-12.848-5.424H18.274c-4.952,0-9.233,1.807-12.85,5.424 C1.807,72.998,0,77.279,0,82.228c0,4.948,1.807,9.229,5.424,12.847l127.907,127.907c3.621,3.617,7.902,5.428,12.85,5.428 s9.233-1.811,12.847-5.428L286.935,95.074c3.613-3.617,5.427-7.898,5.427-12.847C292.362,77.279,290.548,72.998,286.935,69.377z'/%3E%3C/svg%3E");
+    cursor: pointer;
+  }
+}
+
+.error-massage{
+  position: absolute;
+  bottom: -1.2rem;
+  left: 0;
+  color: $warning-color;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  background-color: #FFF;
+}
+
+.logo-container{
+  width: 100px;
+  min-width: 100px;
+  display: inline-block;
+  margin-right: 2rem;
+
+  .logo{
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+@media( max-width: 1350px ) {
+  .logo-container{
+    margin-right: 1rem;
+  }
+}
+
+@media( max-width: 1200px ) {
+  .logo-container{
+    width: 68px;
+    min-width: initial;
+    margin: 0;
+  }
+
+  .select,
+  .input{
+    min-height: 45px;
+    padding: 0.5rem 1rem 0.5rem 0.5rem;
+    font-size: 1.15rem;
+  }
+
+  .select-wrapper{
+
+    &:after{
+      right: 0.3rem;
+    }
+  }
+
+  .empty-btn{
+
+    &__menu{
+      width: 38px;
+      height: 38px;
+      background-size: 25px 25px;
+      background-position: 50% 60%;
+    }
+  }
 }

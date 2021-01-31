@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import SneakersForm from './components/SneakersForm';
 import SneakersList from './components/SneakersList';
@@ -24,13 +24,13 @@ const TotalResults = () => {
 const App = () => {
 
   return(
-    <div>
+    <Fragment>
       <SneakersForm />
-      <TotalResults />
-      <LoadMore currentPage={SNEAKERS_PAGE_NUMBER} />
-      <SneakersList />
+      {/*<TotalResults />*/}
+      {/*<LoadMore currentPage={SNEAKERS_PAGE_NUMBER} />*/}
+      {/*<SneakersList />*/}
       <SneakersDetails />
-    </div>
+    </Fragment>
   )
 };
 

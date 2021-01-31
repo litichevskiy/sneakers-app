@@ -1,10 +1,9 @@
 import React, { Fragment, useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-const PLACEHOLDER_IMG = 'https://image.goat.com/750/placeholders/product_templates/medium/missing.png';
 
 const Image = ({ src, alt, ...rest }) => {
 
-  if( !src || src === PLACEHOLDER_IMG ) return <div style={{margin: 'auto'}} >image is't available</div>
+  if( !src ) return <div style={{margin: 'auto'}} >image is't available</div>
 
   const [isError, setError] = useState( false );
   const [isLoad, setLoad] = useState( false );
@@ -26,6 +25,7 @@ const Image = ({ src, alt, ...rest }) => {
   };
 
   const imageNotAvailable = () => {
+    debugger
     setError( true );
     setLoad( true );
     removeListeners();

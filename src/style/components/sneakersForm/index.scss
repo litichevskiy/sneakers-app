@@ -1,0 +1,82 @@
+.sneakers-form-container{
+  @extend .default-box-shadow;
+  background-color: #FFF;
+  display: flex;
+  height: $height-desktop-navigation;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  max-width: 2000px;
+  margin: 0 auto;
+  padding: 0 0.5rem;
+  transition: $default-animation-time linear transform;
+  transform: translateZ( 0 ) translateY( -100px );
+
+  &--active{
+    transform: translateZ( 0 ) translateY( 0 );
+  }
+
+  &:after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: $height-mobile-navigation;
+    background-color: #FFF;
+    z-index: -1;
+    display: none;
+  }
+
+  .sneakers-form{
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    grid-template-rows: 1fr;
+    grid-gap: 1.75rem;
+    align-items: center;
+    max-width: 1350px;
+    padding: 0.65rem 0;
+  }
+
+  .form-item-container{
+    display: inline-flex;
+    position: relative;
+  }
+
+  .container-buttons{
+    justify-content: space-around;
+  }
+
+  .search{
+    background-color: #2196f3;
+  }
+
+  .clear{
+    background-color: #e4e3e3;
+  }
+
+  [data-role="gender"]{ grid-column: span 1 }
+  [data-role="brand"]{ grid-column: span 1 }
+  [data-role="sheaker-name"]{ grid-column: span 2 }
+  [data-role="release-year"]{ grid-column: span 2 }
+  [data-role="sku"]{ grid-column: span 2 }
+  [data-role="color"]{ grid-column: span 1 }
+  [data-role="buttons"]{ grid-column: span 2 }
+}
+
+.wrapper-toggle-visibility{
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  right: 1rem;
+  height: $height-desktop-navigation;
+  display: flex;
+
+  .toggle-visibility{
+    margin: auto;
+  }
+}

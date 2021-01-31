@@ -1,3 +1,6 @@
+const webpack = require('webpack');
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -51,7 +54,11 @@ module.exports = {
       filename: 'index.html',
       template: 'index.html',
       minify: false,
-    })
+    }),
+    new webpack.DefinePlugin({
+      NODE_ENV: JSON.stringify( NODE_ENV ),
+    }),
+    // new BundleAnalyzerPlugin(),
   ],
   resolve: {
     extensions: ['.ts', '.js', 'scss', 'css']

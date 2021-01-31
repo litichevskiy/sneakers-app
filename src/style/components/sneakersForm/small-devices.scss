@@ -1,0 +1,120 @@
+@media( max-width: 1680px ) {
+  .sneakers-form-container{
+
+    .sneakers-form{
+      max-width: 1050px;
+    }
+  }
+}
+
+@media( max-width: 1350px ) {
+  .sneakers-form-container{
+
+    .sneakers-form{
+      max-width: 950px;
+    }
+
+    .empty-btn__search{
+      margin-left: 0.5rem;
+    }
+  }
+}
+
+@media( max-width: 1300px ) {
+  .sneakers-form-container{
+    justify-content: flex-start;
+    padding: 0 1.5rem;
+  }
+}
+
+@media( max-width: 1200px ) {
+  .sneakers-form-container{
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    width: 400px;
+    height: initial;
+    right: initial;
+    margin: 0;
+    bottom: 0;
+    padding: 0.3rem 0.35rem;
+    background-color: rgba( 255, 255, 255, 0.85 );
+    transform: initial;
+    transform: translateZ( 0 ) translateX( -450px );
+
+    &--active{
+      transform: translateZ( 0 ) translateX( 0 );
+    }
+
+    &:after{
+      display: block;
+    }
+
+    .sneakers-form{
+      max-height: calc( 100% - #{$height-mobile-navigation} );
+      position: absolute;
+      left: 0;
+      top: $height-mobile-navigation;
+      width: 100%;
+      margin: 0;
+      padding: 1rem 0.5rem;
+      border-top: 1px solid $lightgrey-color;
+      overflow: auto;
+      grid-template-columns: 1fr;
+      grid-gap: 0;
+      grid-row-gap: 1.5rem;
+      align-items: flex-start;
+    }
+
+    [data-role="logo"],
+    [data-role="sheaker-name"],
+    [data-role="release-year"],
+    [data-role="sku"],
+    [data-role="buttons"]{
+      grid-column: span 1
+    }
+
+    .error-massage{
+      bottom: initial;
+      top: -1.2rem;
+    }
+
+    .container-buttons{
+      justify-content: flex-end;
+      padding-bottom: 0.5rem;
+    }
+
+    .search,
+    .clear{
+      width: 75px;
+      height: 45px;
+    }
+
+    .clear{
+      margin-right: 1.5rem;
+    }
+
+    .input,
+    .select{
+      @include border_radius( 3px );
+      border: 1px solid $lightgrey-color;
+    }
+  }
+
+  .wrapper-toggle-visibility{
+    right: initial;
+    left: 0.5rem;
+    height: $height-mobile-navigation;
+  }
+}
+
+@media( max-width: 860px ) {
+  .sneakers-form-container{
+    width: 300px;
+    padding: 0.25rem 0.5rem;
+
+    .sneakers-form{
+      padding: 1rem 0.5rem;
+    }
+  }
+}

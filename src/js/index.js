@@ -1,20 +1,24 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import { render } from 'react-dom';
-import initStore from './store';
-import App from './App';
-import fetchData from './actions';
+import polyfill from 'dynamic-polyfill';
 
-const store = initStore();
-const url = ( store.getState() ).sneakers.productsQuery;
+polyfill({
+  // fills: ['fetch', 'Set', 'Map', 'Array.from'],
+  fills: ['fetch'],
+  options: ['gated'],
+  minify: ( NODE_ENV === 'development' ) ? false : true,
+  rum: false,
+  afterFill() {
 
-store.dispatch( fetchData( url ) );
+    import('./initApp').then(module => {
+      module.default();
+    });
 
-console.log('PLACEHOLDER_IMG, productsQuery in form?')
+    import('focus-visible')
+    .then(response => {
+      console.log( 'focus-visible loaded' )
+    });
+  }
+});
 
-render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.querySelector('.app')
-);
+window.addEventListener('error',( event ) => {
+  alert( event.message );
+});

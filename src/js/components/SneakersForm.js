@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Button from './Button';
 import fetchData from '../actions';
@@ -12,19 +12,30 @@ import {
 
 } from '../constants';
 
+const MIN_RELEASE_YEAR = 1984;
+const MAX_RELEASE_YEAR = (new Date).getFullYear();
+const REG_EX_FULL_YEAR = /^[0-9]{4}$/;
+const WRONG_YEAR_FORMAT = `"YYYY" between ${MIN_RELEASE_YEAR} and ${MAX_RELEASE_YEAR}`;
+const EMPTY_FORM = 'Select at least one value';
+const SMALL_DEVICE_WIDTH = 1200; // px
+const isShowForm = ( ( screen.width || window.innerWidth ) <= SMALL_DEVICE_WIDTH ) ? false : true;
+
 const SneakersForm = () => {
+
   const formRef = useRef( null );
   const [brands, setBrands] = useState([]);
   const [genders, setGenders] = useState([]);
-  const [isEmpty, setEmpty] = useState(false);
+  const [isEmpty, setEmpty] = useState( false );
+  const [errorYear, setErrorYear] = useState( false );
   const [lastQuery, setLastQuery] = useState('');
+  const [isActiveForm, setActiveForm] = useState( isShowForm );
   const dispatch = useDispatch();
-  // const productsQuery = useSelector( state => state.sneakers.productsQuery );
 
   useEffect(() => {
     async function fetchData () {
       const brandsResponse = await fetch( `${SNEAKERS_API}${BRANDS_PATH}` );
       const gendersResponse = await fetch( `${SNEAKERS_API}${GENDERS_PATH}` );
+
       const brands = await brandsResponse.json();
       const genders = await gendersResponse.json();
 
@@ -32,14 +43,26 @@ const SneakersForm = () => {
       setGenders( genders.results );
     }
 
-    fetchData();
+    fetchData()
 
   }, []);
+
+  const validateReleaseYear = ({ target: { value } }) => {
+
+    if( !value.length ) return setErrorYear( false );
+
+    const year = parseInt( Number(value), 10 );
+
+    if( year >= MIN_RELEASE_YEAR && year <= MAX_RELEASE_YEAR ) setErrorYear( false );
+    else setErrorYear( true );
+  }
 
   const submitHandler = ( event ) => {
     event.preventDefault();
 
-    let query = [...formRef.current.elements].reduce(( combine, { name, value } ) => {
+    if( errorYear ) return;
+
+    const query = Array.from(formRef.current.elements).reduce(( combine, { name, value } ) => {
       return ( value.trim() ) ? combine += `${name}=${value}&` : combine;
     }, '');
 
@@ -47,11 +70,11 @@ const SneakersForm = () => {
     if( isEmpty ) setEmpty( false );
     if( lastQuery === query ) return;
 
+    console.log( query )
+
     setLastQuery( query );
 
     const url = `${SNEAKERS_API}${SNEAKERS_PATH}?${query}limit=${QUANTITY_SNEAKERS}&page=0`;
-
-    // if( productsQuery === url ) return;
 
     dispatch({ type: 'SET_PRODUCTS_QUERY', payload: url });
     dispatch( fetchData( url ) );
@@ -63,41 +86,109 @@ const SneakersForm = () => {
 
     [...formRef.current.elements].forEach( item => item.value = '' );
     setLastQuery('');
+    setErrorYear( false );
+    setEmpty( false );
+  };
+
+  const toggleVisibility = ({ currentTarget }) => {
+    currentTarget.classList.toggle('is-active');
+    setActiveForm( !isActiveForm );
   }
 
   return (
-    <div>
-      <form ref={formRef} >
+    <Fragment>
 
-        <select name="brand">
-          <option label="brand"></option>
-          {getListOptions( brands )}
-        </select>
+      <div className="wrapper-toggle-visibility">
+        <Button
+          clickHandler={toggleVisibility}
+          className="empty-btn  empty-btn__menu toggle-visibility"
+          type="button" />
+      </div>
 
-        <select name="gender">
-          <option label="gender"></option>
-          {getListOptions( genders )}
-        </select>
+      <div className={isActiveForm ? 'sneakers-form-container sneakers-form-container--active' : 'sneakers-form-container'}>
 
-        <select name="colorway">
-          <option label="color"></option>
-          {getListOptions( SNEAKERS_COLORS )}
-        </select>
+        <picture className="logo-container">
+          <source srcSet="images/logo/logo-small.png" />
+          <img className="logo" src="images/logo/logo-small.webp" alt="logo" />
+        </picture>
 
-        <input type="text" name="sku" placeholder="SKU" />
-        <input type="text" name="name" placeholder="Sneaker Name" />
-        <input type="text" name="releaseYear" placeholder="Release Year" />
-        <hr />
-        { isEmpty && <div style={{color: 'tomato'}}>You must select at least one value</div> }
-        <Button clickHandler={submitHandler} type="button">send</Button>
-        <Button clickHandler={clearForm} type="button">clear</Button>
-      </form>
-    </div>
-  )
+        <form ref={formRef} className="sneakers-form">
+
+          <div className="form-item-container select-wrapper" data-role="brand">
+            <select name="brand" className="select">
+              <option label="brand"></option>
+              {getListOptions( brands )}
+            </select>
+          </div>
+
+          <div className="form-item-container select-wrapper" data-role="gender">
+            <select name="gender" className="select">
+              <option label="gender"></option>
+              {getListOptions( genders )}
+            </select>
+          </div>
+
+          <div className="form-item-container" data-role="sheaker-name">
+            <input
+              type="text"
+              name="name"
+              placeholder="Sneaker Name"
+              className="input"
+              autoComplete="off" />
+          </div>
+
+          <div className="form-item-container" data-role="release-year">
+            <input
+              onChange={validateReleaseYear}
+              className={errorYear ? "input input--invalid" : "input"}
+              type="text"
+              name="releaseYear"
+              placeholder="Release Year"
+              autoComplete="off" />
+            {errorYear && errorMessage( WRONG_YEAR_FORMAT ) }
+          </div>
+
+          <div className="form-item-container" data-role="sku">
+            <input
+              type="text"
+              name="sku"
+              placeholder="Stock Keeping Unit"
+              className="input"
+              autoComplete="off" />
+          </div>
+
+          <div className="form-item-container select-wrapper" data-role="color">
+            <select name="colorway" className="select">
+              <option label="color"></option>
+              {getListOptions( SNEAKERS_COLORS )}
+            </select>
+          </div>
+
+          <div className="form-item-container container-buttons" data-role="buttons">
+            <Button
+              clickHandler={clearForm}
+              type="button"
+              className="empty-btn empty-btn__clear clear" />
+            <Button
+              clickHandler={submitHandler}
+              type="button"
+              className="empty-btn empty-btn__search search" />
+          { isEmpty && errorMessage( EMPTY_FORM ) }
+          </div>
+
+        </form>
+
+      </div>
+
+    </Fragment>
+  );
 };
 
 const getListOptions = ( list ) => {
   return list.map(value => <option key={value} value={value}>{value}</option> )
 };
+
+const errorMessage = ( message ) =>
+  <span className="error-massage">{message}</span>;
 
 export default SneakersForm;

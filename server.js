@@ -13,12 +13,14 @@ app.get('/', (req,res) => {
 
 app.get( '/brands', ( req, res ) => {
   const { brands } = sneaks_data;
-  res.send({ results: brands })
+  setHeaders( res );
+  res.send({ results: brands });
 });
 
 app.get( '/genders', ( req, res ) => {
   const { genders } = sneaks_data;
-  res.send({ results: genders })
+  setHeaders( res );
+  res.send({ results: genders });
 });
 
 app.get( '/sneakers/:id', ( req, res ) => {
@@ -27,6 +29,7 @@ app.get( '/sneakers/:id', ( req, res ) => {
   const sneaker = sneakers.filter( item => item.sku === id );
   let status = 200;
   if( !sneaker.length ) status = 404;
+  setHeaders( res );
   res.status( status ).send({ results: sneaker })
 });
 
@@ -36,6 +39,7 @@ let to = 10;
 app.get( '/sneakers', ( req, res ) => {
   const { sneakers } = sneaks_data;
   const { limit } = req.query;
+  setHeaders( res );
   res.send({ count: sneakers.length, results: sneakers.slice(from, to ) });
   from = to;
   to = to + 10;
@@ -46,5 +50,15 @@ app.get( '/sneakers', ( req, res ) => {
   }
 
 });
+
+
+app.use(( req, res ) => {
+  res.sendFile(path.join(__dirname+'/pageNotFound.html'));
+})
+
+const setHeaders = res => {
+  res.set('Access-Control-Allow-Origin', '*')
+  res.set('contentType', 'application/json')
+};
 
 app.listen( PORT, () => console.log(`server listening on port ${PORT}`));
