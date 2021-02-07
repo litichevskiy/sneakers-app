@@ -1,0 +1,30 @@
+.tabs-container{
+  width: 100%;
+  position: relative;
+  /* background-color: pink; */
+
+  .tabs-navigations{
+    margin-bottom: 0.7rem;
+    border-bottom: 1px solid $lightgrey-color;
+    /* display: inline-block; */
+  }
+
+  .tabs-btn{
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border: 1px solid transparent;
+    /* border-bottom-color: $lightgrey-color; */
+    border-bottom: none;
+    font-size: 1rem;
+    padding: 0.5rem 0.8rem;
+    cursor: pointer;
+    background-color: transparent;
+    text-transform: capitalize;
+
+    &--active{
+      border-color: $lightgrey-color;
+      /* border-bottom-color: transparent; */
+      color: green;
+    }
+  }
+}

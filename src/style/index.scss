@@ -10,10 +10,15 @@
 @import './components/sneakersItem/index';
 @import './components/sneakersDetail/index';
 @import './components/sneakersForm/index';
+@import './components/dialog/index';
+@import './components/tabs/index';
+@import './components/image/index';
 
 /* small-devices */
 
+@import './components/sneakersList/small-devices';
 @import './components/sneakersForm/small-devices';
+@import './components/sneakersDetail/small-devices';
 
 /* lib */
 

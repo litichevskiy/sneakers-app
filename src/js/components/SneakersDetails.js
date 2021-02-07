@@ -1,7 +1,11 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Image from './Image';
+import Dialog from './Dialog';
+import Button from './Button';
+import { Tabs, Tab } from './Tabs';
 import { STORE_NAMES } from '../constants';
+import formatDate from '../utils/formatDate';
 
 const SneakersDetails = () => {
 
@@ -10,35 +14,68 @@ const SneakersDetails = () => {
 
   if( !product ) return null;
 
-  const { name, imgUrl, story, sku, brand, gender, colorway, releaseDate, price, links } = product;
+  const { name, imgUrl, story, sku, brand, gender, colorway, releaseDate, retailPrice, links } = product;
 
   const closeDetails = () => dispatch({type: 'SET_SELECTED_PRODUCT', payload: null });
 
   const listLinks = getArrayLinks( links );
   const stores = getStoreNames( listLinks );
 
+  const { year, month, day, fullDateISO } = formatDate( new Date(releaseDate) );
+
   return(
-    <section className="sneakers-detail" style={{width: '500px', background: 'aliceblue'}}>
-      <span onClick={closeDetails} >close</span>
-      <h5>{name}</h5>
-      <div>
-        <Image alt={name} src={imgUrl} style={{width: '200px', border: '1px solid grey'}} />
-        <p>{story}</p>
-      </div>
-      <div>
-        <div><span style={{color: "brown"}}>sku:</span> {sku}</div>
-        <div><span style={{color: "brown"}}>brand:</span> {brand}</div>
-        <div><span style={{color: "brown"}}>gender:</span> {gender}</div>
-        <div><span style={{color: "brown"}}>colorway:</span> {colorway}</div>
-        <div><span style={{color: "brown"}}>releaseDate:</span> {releaseDate}</div>
-        <div><span style={{color: "brown"}}>price:</span> ${releaseDate}</div>
+    <Dialog closeDialog={closeDetails} >
+      <section className="sneakers-detail">
+        <Button clickHandler={closeDetails} className="empty-btn empty-btn__close close" />
+        <h3 className="header">{name}</h3>
+        <div className="detail-content">
+          <div className="detail-image-container">
+          <Image alt={name} src={imgUrl} className="detail-image"/>
+          </div>
+          <Tabs index={0}>
+            <Tab label="details">
+              <ul className="details-list">
+                <li className="details-list-item">
+                  <span className="title">brand</span>
+                  {brand}
+                </li>
+                <li className="details-list-item">
+                  <span className="title">gender</span>
+                  {gender}
+                </li>
+                <li className="details-list-item">
+                  <span className="title">colorway</span>
+                  {colorway}
+                </li>
+                <li className="details-list-item">
+                  <span className="title">release date</span>
+                  <time className="time" dateTime={fullDateISO}>{day}  {month}  {year}</time>
+                </li>
+                <li className="details-list-item">
+                  <span className="title">sku</span>
+                  {sku}
+                </li>
+                <li className="details-list-item">
+                  <span className="title">price</span>
+                  ${retailPrice}
+                </li>
+              </ul>
+            </Tab>
+            <Tab label="about">
+              <p className="story">{story || `description isn't available`}</p>
+            </Tab>
+          </Tabs>
+        </div>
+        <h5 className="header header--small">available in stock</h5>
         <div>
           {stores.map(( [app, link] ) =>
-            <a key={app} target="_blank" href={link} style={{margin: '0.5rem'}}>{app}</a>)
-          }
+            <a key={app} target="_blank" href={link} className="link link__external">
+              {app}
+            </a>
+          )}
         </div>
-      </div>
-    </section>
+      </section>
+    </Dialog>
   )
 };
 

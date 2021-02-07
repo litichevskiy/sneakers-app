@@ -11,7 +11,7 @@ const LoadMore = ({ currentPage }) => {
   const productsQuery = useSelector( state => state.sneakers.productsQuery );
   const dispatch = useDispatch();
 
-  if( !loadedProducts || loadedProducts === totalProducts ) return null;
+  if( !loadedProducts || loadedProducts >= totalProducts ) return null;
 
   const loadMore = () => {
     setPage( page + 1 );
@@ -20,7 +20,11 @@ const LoadMore = ({ currentPage }) => {
     dispatch( fetchData( url ) );
   };
 
-  return <Button clickHandler={loadMore}>load more</Button>
+  return (
+    <div className="container-load-more">
+      <Button clickHandler={loadMore} className="btn load-more">load more</Button>
+    </div>
+  )
 };
 
 LoadMore.propTypes = {

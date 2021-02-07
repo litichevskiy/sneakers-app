@@ -2,15 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Image from './Image';
 
-const SneakersItem = React.memo(({ clickHandler, data: { name, retailPrice, imgUrl, sku } }) => {
+const SneakersItem = React.memo(({ clickHandler, data: { name, retailPrice, imgUrl, sku, brand } }) => {
 
   return(
-    <li className="sneakers-item" onClick={() => clickHandler( sku )}>
-      <p>{name}</p>
+    <li className="sneakers-item" onClick={() => clickHandler( sku )} >
+      <h3 className="title header">{name}</h3>
+      <span className="brand">{brand}</span>
       <div className="container">
-        <Image className="img" src={imgUrl} alt={name} />
+        {<span style={{margin: 'auto', transition: '.3s'}}>image</span>}
+        {/*<Image className="img" src={imgUrl} alt={name} />*/}
       </div>
-      <span style={{display: 'block'}}>{retailPrice ? '$' + retailPrice : 'n/a'}</span>
+      <span className="price">{retailPrice ? 'From  $' + retailPrice : ''}</span>
+      <div>
+      </div>
     </li>
   );
 });

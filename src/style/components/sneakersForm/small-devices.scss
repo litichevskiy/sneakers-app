@@ -1,28 +1,5 @@
-@media( max-width: 1680px ) {
-  .sneakers-form-container{
-
-    .sneakers-form{
-      max-width: 1050px;
-    }
-  }
-}
-
-@media( max-width: 1350px ) {
-  .sneakers-form-container{
-
-    .sneakers-form{
-      max-width: 950px;
-    }
-
-    .empty-btn__search{
-      margin-left: 0.5rem;
-    }
-  }
-}
-
 @media( max-width: 1300px ) {
   .sneakers-form-container{
-    justify-content: flex-start;
     padding: 0 1.5rem;
   }
 }
@@ -38,8 +15,7 @@
     margin: 0;
     bottom: 0;
     padding: 0.3rem 0.35rem;
-    background-color: rgba( 255, 255, 255, 0.85 );
-    transform: initial;
+    background-color: rgba( 255, 255, 255, 0.95 );
     transform: translateZ( 0 ) translateX( -450px );
 
     &--active{
@@ -102,8 +78,7 @@
   }
 
   .wrapper-toggle-visibility{
-    right: initial;
-    left: 0.5rem;
+    display: flex;
     height: $height-mobile-navigation;
   }
 }

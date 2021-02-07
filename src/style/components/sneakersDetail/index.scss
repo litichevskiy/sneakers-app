@@ -1,6 +1,74 @@
 .sneakers-detail{
-  position: fixed;
-  top: 0;
-  right: 0;
+  margin: auto;
+  width: 960px;
+  background-color: #FFF;
   padding: 1rem;
+  position: relative;
+  max-height: 100%;
+  overflow: auto;
+
+  .close{
+    position: absolute;
+    top: 0.3rem;
+    right: 0.3rem;
+  }
+
+  .detail-content{
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    grid-column-gap: 1rem;
+    margin: 1.3rem 0;
+  }
+
+  .details-list-item{
+    display: flex;
+    align-items: center;
+    padding: 0.3rem 0;
+
+    .title{
+      font-weight: 500;
+      margin-right: 0.35rem;
+      font-size: 0.85rem;
+      text-transform: capitalize;
+
+      &:after{
+        content: ':';
+      }
+    }
+  }
+
+  .header{
+    margin: 0 0 1rem 0;
+  }
+
+  .detail-image-container{
+    height: 300px;
+    border: 1px solid $lightgrey-color;
+    display: flex;
+    position: relative;
+  }
+
+  .detail-image{
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    margin: auto;
+  }
+
+  .story{
+    margin: 0;
+    padding: 0.3rem 0;
+  }
+
+  .link__external{
+    @include border_radius( 3px );
+    padding: 0.3rem 1.7rem 0.3rem 0.5rem;
+    display: inline-block;
+    margin-right: 5px;
+    border: 1px solid $link-color;;
+
+    &:after{
+      right: 0.5rem;
+    }
+  }
 }

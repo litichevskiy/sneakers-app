@@ -1,7 +1,10 @@
 body{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  color: $default-black-color;
+  width: 100%;
   font-size: 1rem;
   margin: 0;
-  width: 100%;
 
   *{
     box-sizing: border-box;
@@ -13,6 +16,7 @@ body{
     margin: 0;
   }
 
+  button,
   button::-moz-focus-inner{
     border:none;
   }

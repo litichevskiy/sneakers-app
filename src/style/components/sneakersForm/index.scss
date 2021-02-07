@@ -13,11 +13,7 @@
   margin: 0 auto;
   padding: 0 0.5rem;
   transition: $default-animation-time linear transform;
-  transform: translateZ( 0 ) translateY( -100px );
-
-  &--active{
-    transform: translateZ( 0 ) translateY( 0 );
-  }
+  z-index: 1;
 
   &:after{
     content: '';
@@ -52,7 +48,7 @@
   }
 
   .search{
-    background-color: #2196f3;
+    background-color: $blue-color;
   }
 
   .clear{
@@ -72,9 +68,9 @@
   position: fixed;
   z-index: 2;
   top: 0;
-  right: 1rem;
+  left: 0.5rem;
   height: $height-desktop-navigation;
-  display: flex;
+  display: none;
 
   .toggle-visibility{
     margin: auto;

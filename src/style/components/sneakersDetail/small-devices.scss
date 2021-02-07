@@ -1,0 +1,16 @@
+@media( max-width: 960px ) {
+  .sneakers-detail{
+    padding: 3rem 0.3rem 0.5rem 0.3rem;
+
+    .detail-content{
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-column-gap: 0;
+      grid-row-gap: 1rem;
+    }
+
+    .link__external{
+      margin-top: 0.35rem;
+    }
+  }
+}

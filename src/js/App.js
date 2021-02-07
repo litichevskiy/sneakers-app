@@ -4,6 +4,7 @@ import SneakersForm from './components/SneakersForm';
 import SneakersList from './components/SneakersList';
 import SneakersDetails from './components/SneakersDetails';
 import LoadMore from './components/LoadMore';
+import QuantitySneakers from './components/QuantitySneakers';
 import { SNEAKERS_PAGE_NUMBER } from './constants';
 
 // import Skeleton from '@material-ui/lab/Skeleton';
@@ -16,19 +17,15 @@ const Variants = () => {
   );
 }
 
-const TotalResults = () => {
-  const quantity = useSelector( state => state.sneakers.totalProducts );
-  return <div> found {quantity} pairs</div>
-};
 
 const App = () => {
 
   return(
     <Fragment>
       <SneakersForm />
-      {/*<TotalResults />*/}
-      {/*<LoadMore currentPage={SNEAKERS_PAGE_NUMBER} />*/}
-      {/*<SneakersList />*/}
+      <QuantitySneakers />
+      <SneakersList />
+      <LoadMore currentPage={SNEAKERS_PAGE_NUMBER} />
       <SneakersDetails />
     </Fragment>
   )

@@ -3,6 +3,18 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
+// const SneaksAPI = require('sneaks-api');
+// const sneaks = new SneaksAPI();
+
+// var ImageKit = require("imagekit");
+// var imagekit = new ImageKit({
+//   publicKey : "public_ylPWQAxwrXB+ffRJoazUuLblCyo=",
+//   privateKey : "private_befK2qC97CZgDoLlS/0vmYXi16M=",
+//   urlEndpoint : "https://ik.imagekit.io/gbc7fgci17l/"
+// });
+
+
+
 const sneaks_data = require('./sneaks-data.json');
 
 app.use('/dist', express.static(__dirname + '/dist'));
