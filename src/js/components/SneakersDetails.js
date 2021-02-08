@@ -22,11 +22,12 @@ const SneakersDetails = () => {
   const stores = getStoreNames( listLinks );
 
   const { year, month, day, fullDateISO } = formatDate( new Date(releaseDate) );
+  const selectedItem = document.querySelector(`[data-id="${sku}"]`);
 
   return(
-    <Dialog closeDialog={closeDetails} >
+    <Dialog closeDialog={closeDetails} selectedItem={selectedItem} >
       <section className="sneakers-detail">
-        <Button clickHandler={closeDetails} className="empty-btn empty-btn__close close" />
+        <Button clickHandler={closeDetails} className="empty-btn empty-btn__close close" aria-label="close" />
         <h3 className="header">{name}</h3>
         <div className="detail-content">
           <div className="detail-image-container">

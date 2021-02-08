@@ -4,11 +4,23 @@ import Image from './Image';
 
 const SneakersItem = React.memo(({ clickHandler, data: { name, retailPrice, imgUrl, sku, brand } }) => {
 
+  const showDetails = ({ type, key }) => {
+    if( type === 'click' ) clickHandler( sku );
+    else if ( type === 'keypress' && key === 'Enter' ) clickHandler( sku );
+  }
+
   return(
-    <li className="sneakers-item" onClick={() => clickHandler( sku )} >
+    <li
+      onClick={showDetails}
+      onKeyPress={showDetails}
+      data-id={sku}
+      aria-label={name}
+      className="sneakers-item"
+      tabIndex="0"
+      role="button" >
       <h3 className="title header">{name}</h3>
       <span className="brand">{brand}</span>
-      <div className="container">
+      <div className="container-image">
         {<span style={{margin: 'auto', transition: '.3s'}}>image</span>}
         {/*<Image className="img" src={imgUrl} alt={name} />*/}
       </div>

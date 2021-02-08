@@ -102,7 +102,8 @@ const SneakersForm = () => {
         <Button
           clickHandler={toggleVisibility}
           className="empty-btn  empty-btn__menu toggle-visibility"
-          type="button" />
+          type="button"
+          aria-label="toggle visibility form search"/>
       </div>
 
       <div className={isActiveForm ? 'sneakers-form-container sneakers-form-container--active' : 'sneakers-form-container'}>
@@ -115,14 +116,14 @@ const SneakersForm = () => {
         <form ref={formRef} className="sneakers-form">
 
           <div className="form-item-container select-wrapper" data-role="brand">
-            <select name="brand" className="select">
+            <select name="brand" className="select" aria-label="sneaker brand">
               <option label="brand"></option>
               {getListOptions( brands )}
             </select>
           </div>
 
           <div className="form-item-container select-wrapper" data-role="gender">
-            <select name="gender" className="select">
+            <select name="gender" className="select" aria-label="genders">
               <option label="gender"></option>
               {getListOptions( genders )}
             </select>
@@ -134,7 +135,8 @@ const SneakersForm = () => {
               name="name"
               placeholder="Sneaker Name"
               className="input"
-              autoComplete="off" />
+              autoComplete="off"
+              aria-label="sneaker name"/>
           </div>
 
           <div className="form-item-container" data-role="release-year">
@@ -144,7 +146,8 @@ const SneakersForm = () => {
               type="text"
               name="releaseYear"
               placeholder="Release Year"
-              autoComplete="off" />
+              autoComplete="off"
+              aria-label="release rear"/>
             {errorYear && errorMessage( WRONG_YEAR_FORMAT ) }
           </div>
 
@@ -154,11 +157,12 @@ const SneakersForm = () => {
               name="sku"
               placeholder="Stock Keeping Unit"
               className="input"
-              autoComplete="off" />
+              autoComplete="off"
+              aria-label="stock keeping unit" />
           </div>
 
           <div className="form-item-container select-wrapper" data-role="color">
-            <select name="colorway" className="select">
+            <select name="colorway" className="select" aria-label="sneaker colors">
               <option label="color"></option>
               {getListOptions( SNEAKERS_COLORS )}
             </select>
@@ -168,11 +172,13 @@ const SneakersForm = () => {
             <Button
               clickHandler={clearForm}
               type="button"
-              className="empty-btn empty-btn__clear clear" />
+              className="empty-btn empty-btn__clear clear"
+              title="clear form" />
             <Button
               clickHandler={submitHandler}
               type="button"
-              className="empty-btn empty-btn__search search" />
+              className="empty-btn empty-btn__search search"
+              title="search"/>
           { isEmpty && errorMessage( EMPTY_FORM ) }
           </div>
 

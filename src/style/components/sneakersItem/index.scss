@@ -1,11 +1,32 @@
 .sneakers-item{
   @extend .default-box-shadow;
   @include border_radius( 3px );
-  padding: 1rem 0.7rem;
   cursor: pointer;
-  background-color: #f7f7f7;
+  padding: 1rem 0.7rem;
+  background-color: #f9f9f9;
   display: inline-flex;
   flex-direction: column;
+  width: 100%;
+  transition: $default-animation-time background-color linear;
+
+  &:focus,
+  &.focus-visible:focus{
+    background-color: #e9e9e9;
+    outline: none;
+  }
+
+  &:hover{
+    background-color: #f3f3f3;
+  }
+
+  &:hover .container-image,
+  &:focus .container-image{
+    border-color: transparent;
+  }
+
+  &:hover .img{
+    transform: translateZ( 0 ) scale( 1.07 );
+  }
 
   .title{
     margin: 0;
@@ -15,7 +36,7 @@
     font-size: 1.2rem;
   }
 
-  .container{
+  .container-image{
     width: 100%;
     height: 270px;
     margin: 1rem auto;
@@ -24,10 +45,7 @@
     overflow: hidden;
     border: 1px solid #e1e1e1;
     position: relative;
-
-    &:hover .img{
-      transform: translateZ( 0 ) scale( 1.1 );
-    }
+    transition: $default-animation-time border-color linear;
   }
 
   .img{

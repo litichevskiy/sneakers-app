@@ -5,7 +5,7 @@ import focusManager from 'focus-manager';
 const ESC_CODE = 'Escape';
 const ESC_KEY_CODE = 27;
 
-const Dialog = ({ children, closeDialog }) => {
+const Dialog = ({ children, closeDialog, selectedItem }) => {
 
   const refDialog = useRef( null );
 
@@ -13,7 +13,7 @@ const Dialog = ({ children, closeDialog }) => {
     window.addEventListener('keydown', keyBoardHandler );
     focusManager.capture( refDialog.current );
     return () => {
-      focusManager.release();
+      focusManager.release( selectedItem );
       window.addEventListener('keydown', keyBoardHandler );
     }
   },[]);
@@ -27,7 +27,11 @@ const Dialog = ({ children, closeDialog }) => {
   };
 
   return(
-    <div ref={refDialog} onClick={clickHandler} className="dialog">
+    <div
+      ref={refDialog}
+      onClick={clickHandler}
+      className="dialog"
+      role="dialog">
       {children}
     </div>
   );
@@ -36,6 +40,7 @@ const Dialog = ({ children, closeDialog }) => {
 Dialog.propTypes = {
   closeDialog: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
+  selectedItem: PropTypes.instanceOf( Element ).isRequired
 };
 
 export default Dialog;
