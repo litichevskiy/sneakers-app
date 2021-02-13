@@ -1,8 +1,8 @@
 import polyfill from 'dynamic-polyfill';
 
 polyfill({
-  // fills: ['fetch', 'Set', 'Map', 'Array.from'],
-  fills: ['fetch'],
+  // fills: ['fetch', 'Set', 'Map', 'Array.from, IntersectionObserver'],
+  fills: ['fetch, IntersectionObserver'],
   options: ['gated'],
   minify: ( NODE_ENV === 'development' ) ? false : true,
   rum: false,

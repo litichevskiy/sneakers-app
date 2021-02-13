@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import SneakersForm from './components/SneakersForm';
 import SneakersList from './components/SneakersList';
@@ -16,7 +16,6 @@ const Variants = () => {
     </div>
   );
 }
-
 
 const App = () => {
 

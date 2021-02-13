@@ -6,7 +6,6 @@
   background-color: #f9f9f9;
   display: inline-flex;
   flex-direction: column;
-  width: 100%;
   transition: $default-animation-time background-color linear;
 
   &:focus,
@@ -46,6 +45,7 @@
     border: 1px solid #e1e1e1;
     position: relative;
     transition: $default-animation-time border-color linear;
+    z-index: 0;
   }
 
   .img{
