@@ -3,8 +3,17 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
+
+const bodyParser = require('body-parser');
+const fs = require('fs');
+
 // const SneaksAPI = require('sneaks-api');
 // const sneaks = new SneaksAPI();
+
+app.use(bodyParser.json());
+
+
+
 
 // var ImageKit = require("imagekit");
 // var imagekit = new ImageKit({
@@ -22,6 +31,28 @@ app.use('/images', express.static(__dirname + '/src/images'));
 app.get('/', (req,res) => {
   res.sendFile(path.join(__dirname+'/dist/js/index.html'));
 });
+
+const db = require('./db-sneakers-v1.json');
+
+
+app.post('/add-sneakers', (req, res) => {
+  const { body } = req;
+
+  fs.readFile('db-sneakers-v1.json', ( err, data ) => {
+    if (err) return res.status(500).send( err );
+
+    const sneakersData = JSON.parse( data );
+
+    sneakersData.sneakers = sneakersData.sneakers.concat( body );
+
+    fs.writeFile('db-sneakers-v1.json', JSON.stringify( sneakersData, null, 2 ),( err ) => {
+      if (err) return res.status(500).send( err );
+      else res.sendStatus( 200 );
+    })
+  });
+});
+
+
 
 app.get( '/brands', ( req, res ) => {
   const { brands } = sneaks_data;
@@ -45,21 +76,26 @@ app.get( '/sneakers/:id', ( req, res ) => {
   res.status( status ).send({ results: sneaker })
 });
 
+const DEFAULT_QUANTITY = 30;
 let from = 0;
-let to = 10;
+let to = DEFAULT_QUANTITY;
 
 app.get( '/sneakers', ( req, res ) => {
   const { sneakers } = sneaks_data;
   const { limit } = req.query;
   setHeaders( res );
-  res.send({ count: sneakers.length, results: sneakers.slice(from, to ) });
-  from = to;
-  to = to + 10;
+  // res.send({ count: sneakers.length, results: sneakers.slice(from, to ) });
+  let result = db.sneakers.slice(from, to );
 
-  if( to > sneakers.length ) {
-    from = 0;
-    to = 10;
-  }
+
+  res.send({ count: db.sneakers.length, results: result });
+  from = to;
+  to = to + DEFAULT_QUANTITY;
+
+  // if( to > sneakers.length ) {
+  //   from = 0;
+  //   to = DEFAULT_QUANTITY;
+  // }
 
 });
 

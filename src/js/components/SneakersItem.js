@@ -25,8 +25,6 @@ const SneakersItem = React.memo(({ clickHandler, data: { name, retailPrice, imgU
         {<Image className="img" src={imgUrl} alt={name} isLazy={true} />}
       </div>
       <span className="price">{retailPrice ? 'From  $' + retailPrice : ''}</span>
-      <div>
-      </div>
     </li>
   );
 });
@@ -34,10 +32,19 @@ const SneakersItem = React.memo(({ clickHandler, data: { name, retailPrice, imgU
 SneakersItem.propTypes = {
   clickHandler: PropTypes.func.isRequired,
   data: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    retailPrice: PropTypes.oneOfType([PropTypes.number, PropTypes.string ]),
+    name: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]).isRequired,
+    retailPrice: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]),
     imgUrl: PropTypes.string.isRequired,
-    sku: PropTypes.string.isRequired
+    sku: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]).isRequired
   }),
 };
 

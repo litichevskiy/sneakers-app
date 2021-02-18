@@ -18,7 +18,7 @@ const REG_EX_FULL_YEAR = /^[0-9]{4}$/;
 const WRONG_YEAR_FORMAT = `"YYYY" between ${MIN_RELEASE_YEAR} and ${MAX_RELEASE_YEAR}`;
 const EMPTY_FORM = 'Select at least one value';
 const SMALL_DEVICE_WIDTH = 1200; // px
-const isShowForm = ( ( screen.width || window.innerWidth ) <= SMALL_DEVICE_WIDTH ) ? false : true;
+const isShowForm = ( ( window.innerWidth || screen.width ) <= SMALL_DEVICE_WIDTH ) ? false : true;
 
 const SneakersForm = () => {
 
@@ -33,6 +33,7 @@ const SneakersForm = () => {
 
   useEffect(() => {
     async function fetchData () {
+
       const brandsResponse = await fetch( `${SNEAKERS_API}${BRANDS_PATH}` );
       const gendersResponse = await fetch( `${SNEAKERS_API}${GENDERS_PATH}` );
 
