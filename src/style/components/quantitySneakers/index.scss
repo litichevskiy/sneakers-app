@@ -1,0 +1,35 @@
+.quantity-sneakers{
+  margin: 0 0 0.5rem 0;
+
+  &.container{
+    text-align: center;
+  }
+
+  .message{
+    margin-top: 3rem;
+    display: inline-block;
+  }
+
+  .message-row{
+    margin-bottom: 0.3rem;
+  }
+
+  .title{
+    margin-right: 0.5rem;
+    font-size: 0.9rem;
+    text-transform: capitalize;
+    font-weight: 500;
+
+    &:after{
+      content: ':';
+    }
+  }
+
+  .content{
+    font-size: 1.1rem;
+  }
+
+  .footer{
+    margin: 2rem 0 0;
+  }
+}

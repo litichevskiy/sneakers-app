@@ -11,7 +11,7 @@ const initialState = {
     productsQuery: `${SNEAKERS_PATH}?releaseYear=${(new Date).getFullYear()}&from=0&to=${QUANTITY_SNEAKERS}`,
     selectedProduct: null,
     productslist: [],
-    totalProducts: 0,
+    totalProducts: null,
   },
 };
 
