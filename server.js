@@ -86,7 +86,7 @@ app.get( '/sneakers', ( req, res ) => {
 
   if( sku ) {
     const result = getSneakersBySKU( sneakers, sku );
-    if( !result ) res.status( 404 ).send({ message: `sneakers with sku ${sku} not found`});
+    if( !result ) res.send({ count: 0, results: [] });
     else res.send({ count: 1, results: [result] });
 
   } else{

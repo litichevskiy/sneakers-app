@@ -16,6 +16,7 @@ const MAX_RELEASE_YEAR = (new Date).getFullYear();
 const REG_EX_FULL_YEAR = /^[0-9]{4}$/;
 const WRONG_YEAR_FORMAT = `"YYYY" between ${MIN_RELEASE_YEAR} and ${MAX_RELEASE_YEAR}`;
 const EMPTY_FORM = 'Select at least one value';
+const TOO_SHORT_NAME = 'Minimum 3 symbols';
 const SMALL_DEVICE_WIDTH = 1200; // px
 const isShowForm = ( ( window.innerWidth || screen.width ) <= SMALL_DEVICE_WIDTH ) ? false : true;
 
@@ -26,6 +27,7 @@ const SneakersForm = () => {
   const [genders, setGenders] = useState([]);
   const [isEmpty, setEmpty] = useState( false );
   const [errorYear, setErrorYear] = useState( false );
+  const [errorName, setErrorName] = useState( false );
   const [lastQuery, setLastQuery] = useState('');
   const [isActiveForm, setActiveForm] = useState( isShowForm );
   const dispatch = useDispatch();
@@ -55,6 +57,15 @@ const SneakersForm = () => {
 
     if( year >= MIN_RELEASE_YEAR && year <= MAX_RELEASE_YEAR ) setErrorYear( false );
     else setErrorYear( true );
+  }
+
+  const validateName = ({ target: { value } }) => {
+    value = value.trim();
+
+    if( !value.length ) return setErrorName( false );
+
+    if( value.length < 3 ) setErrorName( true );
+    else setErrorName( false );
   }
 
   const submitHandler = ( event ) => {
@@ -130,12 +141,14 @@ const SneakersForm = () => {
 
           <div className="form-item-container" data-role="sheaker-name">
             <input
+              onChange={validateName}
+              className={errorName ? "input input--invalid" : "input"}
               type="text"
               name="name"
               placeholder="Sneaker Name"
-              className="input"
               autoComplete="off"
               aria-label="sneaker name"/>
+              {errorName && errorMessage( TOO_SHORT_NAME )}
           </div>
 
           <div className="form-item-container" data-role="release-year">
