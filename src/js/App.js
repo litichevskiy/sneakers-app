@@ -5,7 +5,7 @@ import SneakersList from './components/SneakersList';
 import SneakersDetails from './components/SneakersDetails';
 import LoadMore from './components/LoadMore';
 import QuantitySneakers from './components/QuantitySneakers';
-import { SNEAKERS_PAGE_NUMBER } from './constants';
+import { QUANTITY_SNEAKERS } from './constants';
 
 // import Skeleton from '@material-ui/lab/Skeleton';
 
@@ -24,7 +24,7 @@ const App = () => {
       <SneakersForm />
       <QuantitySneakers />
       <SneakersList />
-      <LoadMore currentPage={SNEAKERS_PAGE_NUMBER} />
+      <LoadMore step={QUANTITY_SNEAKERS} />
       <SneakersDetails />
     </Fragment>
   )

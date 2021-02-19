@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import Button from './Button';
 import fetchData from '../actions';
 import {
-  SNEAKERS_API,
   BRANDS_PATH,
   GENDERS_PATH,
   SNEAKERS_COLORS,
@@ -34,8 +33,8 @@ const SneakersForm = () => {
   useEffect(() => {
     async function fetchData () {
 
-      const brandsResponse = await fetch( `${SNEAKERS_API}${BRANDS_PATH}` );
-      const gendersResponse = await fetch( `${SNEAKERS_API}${GENDERS_PATH}` );
+      const brandsResponse = await fetch( `${BRANDS_PATH}` );
+      const gendersResponse = await fetch( `${GENDERS_PATH}` );
 
       const brands = await brandsResponse.json();
       const genders = await gendersResponse.json();
@@ -71,11 +70,9 @@ const SneakersForm = () => {
     if( isEmpty ) setEmpty( false );
     if( lastQuery === query ) return;
 
-    console.log( query )
-
     setLastQuery( query );
 
-    const url = `${SNEAKERS_API}${SNEAKERS_PATH}?${query}limit=${QUANTITY_SNEAKERS}&page=0`;
+    const url = `${SNEAKERS_PATH}?${query}from=0&to=${QUANTITY_SNEAKERS}`;
 
     dispatch({ type: 'SET_PRODUCTS_QUERY', payload: url });
     dispatch( fetchData( url ) );
@@ -110,8 +107,9 @@ const SneakersForm = () => {
       <div className={isActiveForm ? 'sneakers-form-container sneakers-form-container--active' : 'sneakers-form-container'}>
 
         <picture className="logo-container">
+          <source srcSet="images/logo/logo-small.webp" />
           <source srcSet="images/logo/logo-small.png" />
-          <img className="logo" src="images/logo/logo-small.webp" alt="logo" />
+          <img className="logo" src="images/logo/logo-small.png" alt="logo" />
         </picture>
 
         <form ref={formRef} className="sneakers-form">

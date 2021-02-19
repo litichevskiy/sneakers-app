@@ -2,13 +2,13 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import rootReducer from './reducers/index';
 
-import { SNEAKERS_API, QUANTITY_SNEAKERS, SNEAKERS_PATH, SNEAKERS_PAGE_NUMBER } from './constants';
+import { QUANTITY_SNEAKERS, SNEAKERS_PATH } from './constants';
 
 const initialState = {
   sneakers: {
     isLoading: true,
     error: null,
-    productsQuery: `${SNEAKERS_API}${SNEAKERS_PATH}?limit=${QUANTITY_SNEAKERS}&page=${SNEAKERS_PAGE_NUMBER}`,
+    productsQuery: `${SNEAKERS_PATH}?releaseYear=${(new Date).getFullYear()}&from=0&to=${QUANTITY_SNEAKERS}`,
     selectedProduct: null,
     productslist: [],
     totalProducts: 0,
