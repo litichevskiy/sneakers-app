@@ -3,6 +3,9 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
+const compression = require('compression');
+const sslRedirect = require('heroku-ssl-redirect');
+
 
 const bodyParser = require('body-parser');
 const fs = require('fs');
@@ -11,6 +14,8 @@ const fs = require('fs');
 // const sneaks = new SneaksAPI();
 
 app.use(bodyParser.json());
+app.use(sslRedirect(['other','development','production']));
+app.use(compression({filter: shouldCompress}));
 
 
 
@@ -176,3 +181,4 @@ const getSneakersByFilters = (() => {
   };
 
 })();
+

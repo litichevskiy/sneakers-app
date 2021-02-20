@@ -71,7 +71,7 @@ const SneakersForm = () => {
   const submitHandler = ( event ) => {
     event.preventDefault();
 
-    if( errorYear ) return;
+    if( errorYear || errorName ) return;
 
     const query = Array.from(formRef.current.elements).reduce(( combine, { name, value } ) => {
       return ( value.trim() ) ? combine += `${name}=${value}&` : combine;

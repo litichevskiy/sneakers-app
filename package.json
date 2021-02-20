@@ -2,13 +2,15 @@
   "name": "sneakers-app",
   "version": "0.0.0",
   "scripts": {
-    "start": "node server.js",
-    "dev": "webpack & node server.js",
+    "start": "node ./server/index.js",
+    "dev": "webpack & node ./server/index.js",
     "build": "NODE_ENV=production webpack"
   },
   "dependencies": {
+    "compression": "^1.7.4",
     "core-js": "^2.6.12",
     "express": "*",
+    "heroku-ssl-redirect": "^0.1.1",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12"
   },
