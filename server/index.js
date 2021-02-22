@@ -5,15 +5,11 @@ const app = express();
 const compression = require('compression');
 const sslRedirect = require('heroku-ssl-redirect').default;
 
-const bodyParser = require('body-parser');
-const fs = require('fs');
-
 const shouldCompress = require('./shouldCompress');
 const getSneakersBySKU = require('./getSneakersBySKU');
 const getSneakersByFilters = require('./getSneakersByFilters');
 const db = require('../db-sneakers-v1.json');
 
-app.use(bodyParser.json());
 app.use(sslRedirect(['other','development','production']));
 app.use(compression({filter: shouldCompress}));
 
@@ -23,41 +19,12 @@ app.get('/', (req,res) => {
   res.sendFile(path.join(__dirname+'./../dist/js/index.html'));
 });
 
-app.post('/add-sneakers', (req, res) => {
-  const { body } = req;
-
-  fs.readFile('db-sneakers-v1.json', ( err, data ) => {
-    if (err) return res.status(500).send( err );
-
-    const sneakersData = JSON.parse( data );
-
-    sneakersData.sneakers = sneakersData.sneakers.concat( body );
-
-    fs.writeFile('db-sneakers-v1.json', JSON.stringify( sneakersData, null, 2 ),( err ) => {
-      if (err) return res.status(500).send( err );
-      else res.sendStatus( 200 );
-    })
-  });
-});
-
 app.get( '/search-keys', ( req, res ) => {
   const { brands, genders, colors } = db;
   res.send({ brands, genders, colors });
 });
 
-app.get( '/brands', ( req, res ) => {
-  const { brands } = db;
-  res.send({ results: brands });
-});
-
-app.get( '/genders', ( req, res ) => {
-  const { genders } = db;
-  res.send({ results: genders });
-});
-
 app.get( '/sneakers', ( req, res ) => {
-
-  console.log( req.query );
 
   const { query } = req;
   const { sneakers } = db;
@@ -75,7 +42,7 @@ app.get( '/sneakers', ( req, res ) => {
     to = parseInt( to, 10 );
 
     if( !(from  >= 0) || !( to >= 0 ) ) {
-      res.status( 400 ).send({ message: '"from" and "to" must be positiive numbers' });
+      res.status( 400 ).send({ message: 'Parameter "from" and "to" must be positiive numbers.' });
 
     } else{
 

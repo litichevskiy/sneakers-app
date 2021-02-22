@@ -1,16 +1,11 @@
-import React, { useRef, useEffect, useState, Fragment } from 'react';
+import React, { useRef, useEffect, useState, useReducer, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Button from './Button';
 import fetchData from '../actions';
-import {
-  BRANDS_PATH,
-  GENDERS_PATH,
-  SNEAKERS_COLORS,
-  SNEAKERS_PATH,
-  QUANTITY_SNEAKERS
+import serverAPI from '../serverAPI';
+import { SNEAKERS_PATH, QUANTITY_SNEAKERS } from '../constants';
 
-} from '../constants';
-
+const PATH_SEARCH_KEYS = '/search-keys';
 const MIN_RELEASE_YEAR = 1984;
 const MAX_RELEASE_YEAR = (new Date).getFullYear();
 const REG_EX_FULL_YEAR = /^[0-9]{4}$/;
@@ -20,32 +15,45 @@ const TOO_SHORT_NAME = 'Minimum 3 symbols';
 const SMALL_DEVICE_WIDTH = 1200; // px
 const isShowForm = ( ( window.innerWidth || screen.width ) <= SMALL_DEVICE_WIDTH ) ? false : true;
 
+const initialState = {
+  brands: [],
+  genders: [],
+  colors: [],
+};
+
+const reducer = ( state, { type, payload } ) => {
+  switch( type ) {
+    case 'set_search_keys':
+      return { ...state, ...payload };
+    default:
+      return state;
+  }
+}
+
 const SneakersForm = () => {
 
   const formRef = useRef( null );
-  const [brands, setBrands] = useState([]);
-  const [genders, setGenders] = useState([]);
   const [isEmpty, setEmpty] = useState( false );
   const [errorYear, setErrorYear] = useState( false );
   const [errorName, setErrorName] = useState( false );
   const [lastQuery, setLastQuery] = useState('');
   const [isActiveForm, setActiveForm] = useState( isShowForm );
+  const [state, setState] = useReducer( reducer, initialState );
   const dispatch = useDispatch();
 
   useEffect(() => {
-    async function fetchData () {
+    function fetchSearchKeys () {
 
-      const brandsResponse = await fetch( `${BRANDS_PATH}` );
-      const gendersResponse = await fetch( `${GENDERS_PATH}` );
+      serverAPI.fetch( PATH_SEARCH_KEYS )
+      .then(({ brands, genders, colors }) => {
+        setState({ type: 'set_search_keys', payload: { brands, genders, colors } });
+      })
+      .catch( error => {
+        dispatch({ type: 'SNEAKERS_REQUEST_FAIL', payload: error.message });
+      });
+    };
 
-      const brands = await brandsResponse.json();
-      const genders = await gendersResponse.json();
-
-      setBrands( brands.results );
-      setGenders( genders.results );
-    }
-
-    fetchData()
+    fetchSearchKeys();
 
   }, []);
 
@@ -104,6 +112,8 @@ const SneakersForm = () => {
     setActiveForm( !isActiveForm );
   }
 
+  const{ brands, genders, colors } = state;
+
   return (
     <Fragment>
 
@@ -125,15 +135,32 @@ const SneakersForm = () => {
 
         <form ref={formRef} className="sneakers-form">
 
-          <div className="form-item-container select-wrapper" data-role="brand">
-            <select name="brand" className="select" aria-label="sneaker brand">
+          <div
+            className={ !brands.length ?
+              "form-item-container select-wrapper disabled" :
+              "form-item-container select-wrapper" }
+              data-role="brand">
+            <select
+              disabled={ !brands.length ? true : false }
+              name="brand"
+              className="select"
+              aria-label="sneaker brand">
               <option label="brand"></option>
               {getListOptions( brands )}
             </select>
+
           </div>
 
-          <div className="form-item-container select-wrapper" data-role="gender">
-            <select name="gender" className="select" aria-label="genders">
+          <div
+            className={ !genders.length ?
+              "form-item-container select-wrapper disabled" :
+              "form-item-container select-wrapper" }
+              data-role="gender">
+            <select
+              disabled={ !genders.length ? true : false }
+              name="gender"
+              className="select"
+              aria-label="genders">
               <option label="gender"></option>
               {getListOptions( genders )}
             </select>
@@ -173,10 +200,18 @@ const SneakersForm = () => {
               aria-label="stock keeping unit" />
           </div>
 
-          <div className="form-item-container select-wrapper" data-role="color">
-            <select name="colorway" className="select" aria-label="sneaker colors">
+          <div
+            className={ !colors.length ?
+              "form-item-container select-wrapper disabled" :
+              "form-item-container select-wrapper" }
+            data-role="color">
+            <select
+              disabled={ !colors.length ? true : false }
+              name="colorway"
+              className="select"
+              aria-label="sneaker colors">
               <option label="color"></option>
-              {getListOptions( SNEAKERS_COLORS )}
+              {getListOptions( colors )}
             </select>
           </div>
 

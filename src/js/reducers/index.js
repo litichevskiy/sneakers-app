@@ -4,8 +4,8 @@ const sneakers = ( state = {}, { type, payload } ) => {
   switch( type ) {
     case 'LOADING_SNEAKERS':
       return { ...state, isLoading: payload };
-    case 'SET_ERROR':
-      return { ...state, error: payload };
+    case 'SNEAKERS_REQUEST_FAIL':
+      return { ...state, errorMessage: payload };
     case 'SET_PRODUCTS_QUERY':
       return { ...state, productsQuery: payload };
     case 'ADD_PRODUCTS':

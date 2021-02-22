@@ -7,7 +7,7 @@ import { QUANTITY_SNEAKERS, SNEAKERS_PATH } from './constants';
 const initialState = {
   sneakers: {
     isLoading: true,
-    error: null,
+    errorMessage: null,
     productsQuery: `${SNEAKERS_PATH}?releaseYear=${(new Date).getFullYear()}&from=0&to=${QUANTITY_SNEAKERS}`,
     selectedProduct: null,
     productslist: [],

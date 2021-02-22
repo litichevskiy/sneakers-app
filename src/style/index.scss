@@ -15,12 +15,14 @@
 @import './components/image/index';
 @import './components/quantitySneakers/index';
 @import './components/skeleton/index';
+@import './components/alert/index';
 
 /* small-devices */
 
 @import './components/sneakersList/small-devices';
 @import './components/sneakersForm/small-devices';
 @import './components/sneakersDetail/small-devices';
+@import './components/alert/small-devices';
 
 /* lib */
 

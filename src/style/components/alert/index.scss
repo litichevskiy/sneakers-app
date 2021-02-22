@@ -1,0 +1,25 @@
+.alert{
+  @extend .default-box-shadow;
+  @include border_radius( 3px );
+  position: fixed;
+  z-index: 3;
+  top: 1rem;
+  left: 1rem;
+  width: 400px;
+  padding: 2.6rem 0.5rem 0.7rem;
+  background: #f6f5f5;
+  transform: translateZ(0) translateY( -15rem );
+  transition: $default-animation-time transform;
+  font-size: 1.1rem;
+
+  &--active{
+    transform: translateZ(0) translateY( 0 );
+  }
+
+  .close{
+    float: right;
+    position: absolute;
+    top: 0.3rem;
+    right: 0.3rem;
+  }
+}

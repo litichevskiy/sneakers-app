@@ -31,7 +31,10 @@ const getSneakersByFilters = (() => {
 
     const params = FILTER_NAMES.filter(( key ) => query[key] );
 
-    if( !params.length ) return {error: true, message: `must be selected one of "${FILTER_NAMES.join(', ')}"`};
+    if( !params.length ) return {
+      error: true,
+      message: `Must be selected one of: "${FILTER_NAMES.join('", "')}".`
+    };
 
     return FILTER_NAMES.reduce(( accumulator, key ) => {
       accumulator = filters[key]( accumulator, query[key] );
