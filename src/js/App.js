@@ -1,21 +1,11 @@
 import React, { Fragment } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import SneakersForm from './components/SneakersForm';
 import SneakersList from './components/SneakersList';
 import SneakersDetails from './components/SneakersDetails';
 import LoadMore from './components/LoadMore';
 import QuantitySneakers from './components/QuantitySneakers';
+import LoaderSneakersList from './components/LoaderSneakersList';
 import { QUANTITY_SNEAKERS } from './constants';
-
-// import Skeleton from '@material-ui/lab/Skeleton';
-
-const Variants = () => {
-  return (
-    <div>
-      <Skeleton variant="rect" width={210} height={118} />
-    </div>
-  );
-}
 
 const App = () => {
 
@@ -24,6 +14,7 @@ const App = () => {
       <SneakersForm />
       <QuantitySneakers />
       <SneakersList />
+      <LoaderSneakersList />
       <LoadMore step={QUANTITY_SNEAKERS} />
       <SneakersDetails />
     </Fragment>

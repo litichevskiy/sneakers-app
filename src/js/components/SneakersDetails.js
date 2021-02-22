@@ -14,7 +14,7 @@ const SneakersDetails = () => {
 
   if( !product ) return null;
 
-  const { name, imgUrl, story, sku, brand, gender, colorway, releaseDate, retailPrice, links } = product;
+  const { name, imgUrl, story, sku, brand, gender, colorway, releaseDate, retailPrice, links, imgColors } = product;
 
   const closeDetails = () => dispatch({type: 'SET_SELECTED_PRODUCT', payload: null });
 
@@ -31,7 +31,7 @@ const SneakersDetails = () => {
         <h3 className="header">{name}</h3>
         <div className="detail-content">
           <div className="detail-image-container">
-          <Image alt={name} src={imgUrl} isLazy={true} className="detail-image" />
+          <Image alt={name} src={imgUrl} isLazy={true} className="detail-image" imgColors={imgColors} />
           </div>
           <Tabs index={0}>
             <Tab label="details">

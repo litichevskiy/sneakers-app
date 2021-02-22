@@ -4,9 +4,9 @@ import ImageWithLazyLoad from '../HOCs/ImageWithLazyLoad';
 
 const IMG_NOT_AVAILABLE = "image is't available";
 
-const Image = ({ src, alt, isLazy, observe, unobserve, ...rest }) => {
+const Image = ({ src, alt, isLazy, observe, unobserve, imgColors, ...rest }) => {
 
-  if( !src ) return imgAltContent( IMG_NOT_AVAILABLE );
+  if( !src ) return imgAltContent( IMG_NOT_AVAILABLE, imgColors );
 
   const [isError, setError] = useState( false );
   const [isLoad, setLoad] = useState( false );
@@ -45,20 +45,25 @@ const Image = ({ src, alt, isLazy, observe, unobserve, ...rest }) => {
         <img ref={imgRef} data-src={src} alt={alt} {...rest} /> :
         <img ref={imgRef} src={src} alt={alt} {...rest} />
       }
-      { !isLoad && imgAltContent('...loading') }
-      { isError && imgAltContent( IMG_NOT_AVAILABLE ) }
+      { !isLoad && imgAltContent('', imgColors) }
+      { isError && imgAltContent( IMG_NOT_AVAILABLE, imgColors ) }
     </Fragment>
   )
 };
 
-const imgAltContent = ( content ) => (
-  <div className="image-loading-layer" >{content}</div>
+const imgAltContent = ( content, imgColors ) => (
+  <div
+    style={{background: `${imgColors[0]}`}}
+    className="image-loading-layer">
+    {content}
+  </div>
 );
 
 Image.defaultProps = {
   isLazy: false,
   observe: () => {},
   unobserve: () => {},
+  imgColors: ['#d2d2d2'],
 };
 
 Image.propTypes = {
@@ -67,6 +72,7 @@ Image.propTypes = {
   isLazy: PropTypes.bool,
   observe: PropTypes.func,
   unobserve: PropTypes.func,
+  imgColors: PropTypes.array,
 };
 
 export default ImageWithLazyLoad( Image );

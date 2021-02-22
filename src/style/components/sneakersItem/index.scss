@@ -1,11 +1,19 @@
-.sneakers-item{
+.sneakers-card{
   @extend .default-box-shadow;
   @include border_radius( 3px );
-  cursor: pointer;
   padding: 1rem 0.7rem;
   background-color: #f3f1f1;
   display: inline-flex;
   flex-direction: column;
+}
+
+.sneakers-item-skeleton{
+  @extend .sneakers-card;
+}
+
+.sneakers-item{
+  @extend .sneakers-card;
+  cursor: pointer;
   transition: $default-animation-time background-color linear;
 
   &:focus,
@@ -16,11 +24,6 @@
 
   &:hover{
     background-color: #e1e1e1;
-  }
-
-  &:hover .container-image,
-  &:focus .container-image{
-    border-color: transparent;
   }
 
   &:hover .img{

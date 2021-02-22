@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 import SneakersItem from './SneakersItem';
 
 const SneakersList = () => {
@@ -13,6 +13,8 @@ const SneakersList = () => {
       payload: id
     });
   },[]);
+
+  if( !productslist.length ) return null;
 
   return(
     <ul className="sneakers-list">

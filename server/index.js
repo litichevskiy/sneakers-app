@@ -17,7 +17,6 @@ app.use(bodyParser.json());
 app.use(sslRedirect(['other','development','production']));
 app.use(compression({filter: shouldCompress}));
 
-
 app.use('/dist', express.static(__dirname + './../dist'));
 app.use('/images', express.static(__dirname + './../src/images'));
 app.get('/', (req,res) => {
@@ -39,6 +38,11 @@ app.post('/add-sneakers', (req, res) => {
       else res.sendStatus( 200 );
     })
   });
+});
+
+app.get( '/search-keys', ( req, res ) => {
+  const { brands, genders, colors } = db;
+  res.send({ brands, genders, colors });
 });
 
 app.get( '/brands', ( req, res ) => {

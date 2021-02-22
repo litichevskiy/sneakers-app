@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 const sneakers = ( state = {}, { type, payload } ) => {
   switch( type ) {
-    case 'IS_LOADING':
+    case 'LOADING_SNEAKERS':
       return { ...state, isLoading: payload };
     case 'SET_ERROR':
       return { ...state, error: payload };
