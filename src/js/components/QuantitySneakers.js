@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 const QUERY_PARAMS = {
   brand: 'brand',
   gender: 'gender',
-  name: 'gender',
+  name: 'name',
   releaseYear: 'Release Year',
   sku: 'Stock Keeping Unit',
   colorway: 'color'

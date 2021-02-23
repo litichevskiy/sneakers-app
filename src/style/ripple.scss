@@ -1,14 +1,11 @@
 .ripple{
   position: absolute;
-  border-radius: 50%;
-  transform: scale(0.3);
-  background: tomato;
-  position: absolute;
+  background: rgba(0,0,0,0.3);
   border-radius: 50%;
   transform: scale(0.3);
 
   &_active{
-    animation: ripple 500ms linear;
+    animation: ripple 300ms linear;
   }
 }
 

@@ -40,7 +40,6 @@
     "redux-thunk": "^2.3.0",
     "sass-loader": "^7.1.0",
     "scss-loader": "0.0.1",
-    "sneaks-api": "^1.1.1",
     "style-loader": "^2.0.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack-bundle-analyzer": "^4.4.0"

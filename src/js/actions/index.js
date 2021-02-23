@@ -4,6 +4,7 @@ const fetchData = ( url ) => {
   return ( dispatch ) => {
 
     dispatch({ type:'LOADING_SNEAKERS', payload: true });
+    dispatch({ type: 'SET_TOTAL_PRODUCTS', payload: null });
 
     serverAPI.fetch( url )
     .then(({ results, count }) => {
