@@ -6,7 +6,7 @@ const IMG_NOT_AVAILABLE = "image is't available";
 
 const Image = ({ src, alt, isLazy, observe, unobserve, imgColors, ...rest }) => {
 
-  if( !src ) return imgAltContent( IMG_NOT_AVAILABLE, imgColors );
+  if( !src ) return imgAltContent( IMG_NOT_AVAILABLE, imgColors, false );
 
   const [isError, setError] = useState( false );
   const [isLoad, setLoad] = useState( false );
@@ -39,21 +39,30 @@ const Image = ({ src, alt, isLazy, observe, unobserve, imgColors, ...rest }) => 
     setLoad( true );
   };
 
+  if( isLazy ) {
+    return (
+      <Fragment>
+        {isLazy ?
+          <img ref={imgRef} data-src={src} alt={alt} {...rest} /> :
+          <img ref={imgRef} src={src} alt={alt} {...rest} />
+        }
+        { !isError && imgAltContent('', imgColors, isLoad) }
+        { isError && imgAltContent( IMG_NOT_AVAILABLE, imgColors, false ) }
+      </Fragment>
+    );
+  }
+
   return (
     <Fragment>
-      {isLazy ?
-        <img ref={imgRef} data-src={src} alt={alt} {...rest} /> :
         <img ref={imgRef} src={src} alt={alt} {...rest} />
-      }
-      { !isLoad && imgAltContent('', imgColors) }
-      { isError && imgAltContent( IMG_NOT_AVAILABLE, imgColors ) }
+      { isError && imgAltContent( IMG_NOT_AVAILABLE, imgColors, false ) }
     </Fragment>
-  )
+  );
 };
 
-const imgAltContent = ( content, imgColors ) => (
+const imgAltContent = ( content, imgColors, isLoad ) => (
   <div
-    style={{background: `${imgColors[0]}`}}
+    style={{background: `${imgColors[0]}`, opacity: !isLoad ? 1 : 0 }}
     className="image-loading-layer">
     {content}
   </div>

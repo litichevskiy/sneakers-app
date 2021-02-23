@@ -31,7 +31,7 @@ const SneakersDetails = () => {
         <h3 className="header">{name}</h3>
         <div className="detail-content">
           <div className="detail-image-container">
-          <Image alt={name} src={imgUrl} isLazy={true} className="detail-image" imgColors={imgColors} />
+          <Image alt={name} src={imgUrl} className="detail-image" />
           </div>
           <Tabs index={0}>
             <Tab label="details">
