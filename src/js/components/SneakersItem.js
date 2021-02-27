@@ -24,7 +24,7 @@ const SneakersItem = React.memo(({ clickHandler, data: { name, retailPrice, imgU
         {/*<span style={{margin: 'auto', transition: '.3s'}}>image</span>*/}
         {<Image className="img" src={imgUrl} alt={name} isLazy={true} imgColors={imgColors}/>}
       </div>
-      <span className="price">{retailPrice ? 'From  $' + retailPrice : ''}</span>
+      <span className="price">From  {retailPrice ? '$' + retailPrice : 'N/A'}</span>
     </li>
   );
 });

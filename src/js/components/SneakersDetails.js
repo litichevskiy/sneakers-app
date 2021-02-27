@@ -58,7 +58,7 @@ const SneakersDetails = () => {
                 </li>
                 <li className="details-list-item">
                   <span className="title">price</span>
-                  ${retailPrice}
+                  { ( retailPrice ) ? `$ ${retailPrice}` : 'N/A' }
                 </li>
               </ul>
             </Tab>
