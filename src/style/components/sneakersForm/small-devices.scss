@@ -1,45 +1,20 @@
-@media( max-width: 1300px ) {
-  .sneakers-form-container{
-    padding: 0 1.5rem;
-  }
-}
-
 @media( max-width: 1200px ) {
-  .sneakers-form-container{
-    align-items: flex-start;
-    justify-content: space-between;
-    flex-direction: row-reverse;
-    width: 400px;
-    height: 100vh;
-    right: initial;
+  .sneakers-form{
+    max-height: calc( 100% - #{$height-mobile-navigation} );
+    position: absolute;
+    left: 0;
+    top: $height-mobile-navigation;
+
+
+    width: 100%;
     margin: 0;
-    padding: 0.3rem 0.35rem;
-    background-color: rgba( 255, 255, 255, 0.95 );
-    transform: translateZ( 0 ) translateX( -450px );
-
-    &--active{
-      transform: translateZ( 0 ) translateX( 0 );
-    }
-
-    &:after{
-      display: block;
-    }
-
-    .sneakers-form{
-      max-height: calc( 100% - #{$height-mobile-navigation} );
-      position: absolute;
-      left: 0;
-      top: $height-mobile-navigation;
-      width: 100%;
-      margin: 0;
-      padding: 1rem 0.5rem;
-      border-top: 1px solid $lightgrey-color;
-      overflow: auto;
-      grid-template-columns: 1fr;
-      grid-gap: 0;
-      grid-row-gap: 1.5rem;
-      align-items: flex-start;
-    }
+    padding: 1rem 0.5rem;
+    border-top: 1px solid $lightgrey-color;
+    overflow: auto;
+    grid-template-columns: 1fr;
+    grid-gap: 0;
+    grid-row-gap: 1.5rem;
+    align-items: flex-start;
 
     [data-role="logo"],
     [data-role="sheaker-name"],
@@ -75,20 +50,10 @@
       border: 1px solid $lightgrey-color;
     }
   }
-
-  .wrapper-toggle-visibility{
-    display: flex;
-    height: $height-mobile-navigation;
-  }
 }
 
 @media( max-width: 860px ) {
-  .sneakers-form-container{
-    width: 300px;
-    padding: 0.25rem 0.5rem;
-
-    .sneakers-form{
-      padding: 1rem 0.5rem;
-    }
+  .sneakers-form{
+    padding: 1rem 0.5rem;
   }
 }

@@ -13,20 +13,22 @@ const Image = ({ src, alt, isLazy, observe, unobserve, imgColors, ...rest }) => 
   const imgRef = useRef( null );
 
   useEffect(() => {
+    const instance = imgRef.current;
+    instance.addEventListener('load', imageLoaded );
+    instance.addEventListener('error', imageNotAvailable );
 
-    imgRef.current.addEventListener('load', imageLoaded );
-    imgRef.current.addEventListener('error', imageNotAvailable );
     return () => {
-
-      imgRef.current.removeEventListener('load', imageLoaded );
-      imgRef.current.removeEventListener('error', imageNotAvailable );
+      instance.removeEventListener('load', imageLoaded );
+      instance.removeEventListener('error', imageNotAvailable );
     }
   },[]);
 
   useEffect(() => {
-    if( isLazy ) observe( imgRef.current );
+    const instance = imgRef.current;
+    if( isLazy ) observe( instance );
+
     return () => {
-      if( isLazy ) unobserve( imgRef.current );
+      if( instance ) unobserve( instance );
     }
   },[])
 

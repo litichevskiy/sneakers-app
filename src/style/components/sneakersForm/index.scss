@@ -1,41 +1,12 @@
-.sneakers-form-container{
-  @extend .default-box-shadow;
-  background-color: #FFF;
-  display: flex;
-  height: $height-desktop-navigation;
+.sneakers-form{
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  grid-template-rows: 1fr;
+  grid-gap: 1.75rem;
   align-items: center;
-  justify-content: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  padding: 0 0.5rem;
-  transition: $default-animation-time linear transform;
-  z-index: 1;
-
-  &:after{
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: $height-mobile-navigation;
-    background-color: #FFF;
-    z-index: -1;
-    display: none;
-  }
-
-  .sneakers-form{
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(11, 1fr);
-    grid-template-rows: 1fr;
-    grid-gap: 1.75rem;
-    align-items: center;
-    max-width: 1350px;
-    padding: 0.65rem 0;
-  }
+  max-width: 1350px;
+  padding: 0.65rem 0;
 
   .form-item-container{
     display: inline-flex;
@@ -61,17 +32,4 @@
   [data-role="sku"]{ grid-column: span 2 }
   [data-role="color"]{ grid-column: span 1 }
   [data-role="buttons"]{ grid-column: span 2 }
-}
-
-.wrapper-toggle-visibility{
-  position: fixed;
-  z-index: 2;
-  top: 0;
-  left: 0.5rem;
-  height: $height-desktop-navigation;
-  display: none;
-
-  .toggle-visibility{
-    margin: auto;
-  }
 }

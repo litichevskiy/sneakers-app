@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, useState, useReducer, Fragment } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useRef, useEffect, useState, useReducer } from 'react';
+import { useDispatch } from 'react-redux';
 import Button from './Button';
 import fetchData from '../actions';
 import serverAPI from '../serverAPI';
@@ -12,8 +12,6 @@ const REG_EX_FULL_YEAR = /^[0-9]{4}$/;
 const WRONG_YEAR_FORMAT = `"YYYY" between ${MIN_RELEASE_YEAR} and ${MAX_RELEASE_YEAR}`;
 const EMPTY_FORM = 'Select at least one value';
 const TOO_SHORT_NAME = 'Minimum 3 symbols';
-const SMALL_DEVICE_WIDTH = 1200; // px
-const isShowForm = ( ( window.innerWidth || screen.width ) <= SMALL_DEVICE_WIDTH ) ? false : true;
 
 const initialState = {
   brands: [],
@@ -37,7 +35,6 @@ const SneakersForm = () => {
   const [errorYear, setErrorYear] = useState( false );
   const [errorName, setErrorName] = useState( false );
   const [lastQuery, setLastQuery] = useState('');
-  const [isActiveForm, setActiveForm] = useState( isShowForm );
   const [state, setState] = useReducer( reducer, initialState );
   const dispatch = useDispatch();
 
@@ -51,7 +48,7 @@ const SneakersForm = () => {
       .catch( error => {
         dispatch({ type: 'SNEAKERS_REQUEST_FAIL', payload: error.message });
       });
-    };
+    }
 
     fetchSearchKeys();
 
@@ -107,133 +104,106 @@ const SneakersForm = () => {
     setEmpty( false );
   };
 
-  const toggleVisibility = ({ currentTarget }) => {
-    currentTarget.classList.toggle('is-active');
-    setActiveForm( !isActiveForm );
-  }
-
   const{ brands, genders, colors } = state;
 
   return (
-    <Fragment>
+    <form ref={formRef} className="sneakers-form">
 
-      <div className="wrapper-toggle-visibility">
+      <div
+        className={ !brands.length ?
+          "form-item-container select-wrapper disabled" :
+          "form-item-container select-wrapper" }
+          data-role="brand">
+        <select
+          disabled={ !brands.length ? true : false }
+          name="brand"
+          className="select"
+          aria-label="sneaker brand">
+          <option label="brand"></option>
+          {getListOptions( brands )}
+        </select>
+
+      </div>
+
+      <div
+        className={ !genders.length ?
+          "form-item-container select-wrapper disabled" :
+          "form-item-container select-wrapper" }
+          data-role="gender">
+        <select
+          disabled={ !genders.length ? true : false }
+          name="gender"
+          className="select"
+          aria-label="genders">
+          <option label="gender"></option>
+          {getListOptions( genders )}
+        </select>
+      </div>
+
+      <div className="form-item-container" data-role="sheaker-name">
+        <input
+          onChange={validateName}
+          className={errorName ? "input input--invalid" : "input"}
+          type="text"
+          name="name"
+          placeholder="Sneaker Name"
+          autoComplete="off"
+          aria-label="sneaker name"/>
+          {errorName && errorMessage( TOO_SHORT_NAME )}
+      </div>
+
+      <div className="form-item-container" data-role="release-year">
+        <input
+          onChange={validateReleaseYear}
+          className={errorYear ? "input input--invalid" : "input"}
+          type="text"
+          name="releaseYear"
+          placeholder="Release Year"
+          autoComplete="off"
+          aria-label="release rear"/>
+        {errorYear && errorMessage( WRONG_YEAR_FORMAT ) }
+      </div>
+
+      <div className="form-item-container" data-role="sku">
+        <input
+          type="text"
+          name="sku"
+          placeholder="Stock Keeping Unit"
+          className="input"
+          autoComplete="off"
+          aria-label="stock keeping unit" />
+      </div>
+
+      <div
+        className={ !colors.length ?
+          "form-item-container select-wrapper disabled" :
+          "form-item-container select-wrapper" }
+        data-role="color">
+        <select
+          disabled={ !colors.length ? true : false }
+          name="colorway"
+          className="select"
+          aria-label="sneaker colors">
+          <option label="color"></option>
+          {getListOptions( colors )}
+        </select>
+      </div>
+
+      <div className="form-item-container container-buttons" data-role="buttons">
         <Button
-          clickHandler={toggleVisibility}
-          className="empty-btn  empty-btn__menu toggle-visibility"
+          clickHandler={clearForm}
           type="button"
-          aria-label="toggle visibility form search"/>
+          className="empty-btn empty-btn__clear clear"
+          title="clear form" />
+        <Button
+          clickHandler={submitHandler}
+          type="button"
+          className="empty-btn empty-btn__search search"
+          title="search"/>
+      { isEmpty && errorMessage( EMPTY_FORM ) }
       </div>
 
-      <div className={isActiveForm ? 'sneakers-form-container sneakers-form-container--active' : 'sneakers-form-container'}>
-
-        <picture className="logo-container">
-          <source srcSet="images/logo/logo-small.webp" />
-          <source srcSet="images/logo/logo-small.png" />
-          <img className="logo" src="images/logo/logo-small.png" alt="logo" />
-        </picture>
-
-        <form ref={formRef} className="sneakers-form">
-
-          <div
-            className={ !brands.length ?
-              "form-item-container select-wrapper disabled" :
-              "form-item-container select-wrapper" }
-              data-role="brand">
-            <select
-              disabled={ !brands.length ? true : false }
-              name="brand"
-              className="select"
-              aria-label="sneaker brand">
-              <option label="brand"></option>
-              {getListOptions( brands )}
-            </select>
-
-          </div>
-
-          <div
-            className={ !genders.length ?
-              "form-item-container select-wrapper disabled" :
-              "form-item-container select-wrapper" }
-              data-role="gender">
-            <select
-              disabled={ !genders.length ? true : false }
-              name="gender"
-              className="select"
-              aria-label="genders">
-              <option label="gender"></option>
-              {getListOptions( genders )}
-            </select>
-          </div>
-
-          <div className="form-item-container" data-role="sheaker-name">
-            <input
-              onChange={validateName}
-              className={errorName ? "input input--invalid" : "input"}
-              type="text"
-              name="name"
-              placeholder="Sneaker Name"
-              autoComplete="off"
-              aria-label="sneaker name"/>
-              {errorName && errorMessage( TOO_SHORT_NAME )}
-          </div>
-
-          <div className="form-item-container" data-role="release-year">
-            <input
-              onChange={validateReleaseYear}
-              className={errorYear ? "input input--invalid" : "input"}
-              type="text"
-              name="releaseYear"
-              placeholder="Release Year"
-              autoComplete="off"
-              aria-label="release rear"/>
-            {errorYear && errorMessage( WRONG_YEAR_FORMAT ) }
-          </div>
-
-          <div className="form-item-container" data-role="sku">
-            <input
-              type="text"
-              name="sku"
-              placeholder="Stock Keeping Unit"
-              className="input"
-              autoComplete="off"
-              aria-label="stock keeping unit" />
-          </div>
-
-          <div
-            className={ !colors.length ?
-              "form-item-container select-wrapper disabled" :
-              "form-item-container select-wrapper" }
-            data-role="color">
-            <select
-              disabled={ !colors.length ? true : false }
-              name="colorway"
-              className="select"
-              aria-label="sneaker colors">
-              <option label="color"></option>
-              {getListOptions( colors )}
-            </select>
-          </div>
-
-          <div className="form-item-container container-buttons" data-role="buttons">
-            <Button
-              clickHandler={clearForm}
-              type="button"
-              className="empty-btn empty-btn__clear clear"
-              title="clear form" />
-            <Button
-              clickHandler={submitHandler}
-              type="button"
-              className="empty-btn empty-btn__search search"
-              title="search"/>
-          { isEmpty && errorMessage( EMPTY_FORM ) }
-          </div>
-
-        </form>
-
-      </div>
-
-    </Fragment>
+    </form>
   );
 };
 

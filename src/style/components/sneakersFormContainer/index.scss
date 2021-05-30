@@ -1,0 +1,40 @@
+.sneakers-form-container{
+  @extend .default-box-shadow;
+  background-color: #FFF;
+  display: flex;
+  height: $height-desktop-navigation;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  padding: 0 0.5rem;
+  z-index: 1;
+
+  &:after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: $height-mobile-navigation;
+    background-color: #FFF;
+    z-index: -1;
+    display: none;
+  }
+}
+
+.wrapper-toggle-visibility{
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0.5rem;
+  height: $height-desktop-navigation;
+  display: none;
+
+  .toggle-visibility{
+    margin: auto;
+  }
+}

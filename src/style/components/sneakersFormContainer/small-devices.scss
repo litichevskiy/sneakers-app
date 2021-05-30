@@ -1,0 +1,56 @@
+$desctop-width: 400px;
+$mobile-width: 300px;
+$desctop-offset-width: - $desctop-width;
+$mobile-offset-width: - $mobile-width;
+
+@media( max-width: 1300px ) {
+  .sneakers-form-container{
+    padding: 0 1.5rem;
+  }
+}
+
+@media( max-width: 1200px ) {
+  .sneakers-form-container{
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    width: $desctop-width;
+    height: 100vh;
+    right: initial;
+    margin: 0;
+    padding: 0.3rem 0.35rem;
+    background-color: rgba( 255, 255, 255, 0.95 );
+    transform: translateZ( 0 ) translateX( $desctop-offset-width );
+
+    &--active{
+      transform: translateZ( 0 ) translateX( 0 );
+    }
+
+    &:after{
+      display: block;
+    }
+
+    &:before{
+      content: '';
+      position: absolute;
+      top: 0;
+      right: -15px;
+      width: 15px;
+      height: 100%;
+      background-color: transparent;
+    }
+  }
+
+  .wrapper-toggle-visibility{
+    display: flex;
+    height: $height-mobile-navigation;
+  }
+}
+
+@media( max-width: 860px ) {
+  .sneakers-form-container{
+    width: $mobile-width;
+    transform: translateZ( 0 ) translateX( $mobile-offset-width );
+    padding: 0.25rem 0.5rem;
+  }
+}

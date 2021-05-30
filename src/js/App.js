@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import SneakersForm from './components/SneakersForm';
 import SneakersList from './components/SneakersList';
 import SneakersDetails from './components/SneakersDetails';
 import LoadMore from './components/LoadMore';
@@ -7,12 +6,14 @@ import QuantitySneakers from './components/QuantitySneakers';
 import LoaderSneakersList from './components/LoaderSneakersList';
 import Alert from './components/Alert';
 import { QUANTITY_SNEAKERS } from './constants';
+import SneakersFormContainer from './components/SneakersFormContainer';
+
 
 const App = () => {
 
   return(
     <Fragment>
-      <SneakersForm />
+      <SneakersFormContainer />
       <QuantitySneakers />
       <SneakersList />
       <LoaderSneakersList />
