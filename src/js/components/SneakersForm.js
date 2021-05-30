@@ -7,7 +7,7 @@ import { SNEAKERS_PATH, QUANTITY_SNEAKERS } from '../constants';
 
 const PATH_SEARCH_KEYS = '/search-keys';
 const MIN_RELEASE_YEAR = 1984;
-const MAX_RELEASE_YEAR = (new Date).getFullYear();
+const MAX_RELEASE_YEAR = 2021; // not new Date because db will not be updated
 const REG_EX_FULL_YEAR = /^[0-9]{4}$/;
 const WRONG_YEAR_FORMAT = `"YYYY" between ${MIN_RELEASE_YEAR} and ${MAX_RELEASE_YEAR}`;
 const EMPTY_FORM = 'Select at least one value';
