@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -12,7 +11,6 @@ const IS_DEVELOPMENT = NODE_ENV === 'development';
 module.exports = {
   mode: NODE_ENV,
   devtool: IS_DEVELOPMENT ? 'inline-cheap-module-source-map' : false,
-  // devtool: !IS_DEVELOPMENT ? 'none' : 'source-map',
   watch: IS_DEVELOPMENT,
   watchOptions: {
     ignored: ['react-dom', 'react', 'node_modules/**'],
@@ -35,7 +33,6 @@ module.exports = {
   },
   entry: {
     bundle: ['./src/js/index.js'],
-    // vendors: ['react', 'react-dom'],
     style: ['./src/style/index.scss'],
   },
   output: {
@@ -58,7 +55,6 @@ module.exports = {
     new webpack.DefinePlugin({
       NODE_ENV: JSON.stringify( NODE_ENV ),
     }),
-    // new BundleAnalyzerPlugin(),
   ],
   resolve: {
     extensions: ['.ts', '.js', 'scss', 'css']
